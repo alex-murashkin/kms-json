@@ -27,7 +27,7 @@ awsKmsSettings      | Object       | Settings object passed into the `AWS.KMS` c
 keyId               | string (ARN) | ARN of a KMS key
 encoding            | string       | Character encoding to represent the encoded string. See [Node.JS Buffer API](https://nodejs.org/api/buffer.html#buffer_buffers_and_character_encodings)
 
-* Encrypt a JSON:  
+* Encrypt a JSON object:  
 
 ```javascript
 const encrypted = yield kmsJson.encrypt({
@@ -38,7 +38,7 @@ console.log(encrypted);
 // outputs something like "0101020078c99e38275140f38a86222f8...3cc"
 // depending on the key, payload size and encoding
 ```
-* Decrypt an encrypted JSON:
+* Decrypt an encrypted JSON object:
 
 ```javascript
 const decrypted = yield kmsJson.decrypt(encrypted);
