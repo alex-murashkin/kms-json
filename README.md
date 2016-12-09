@@ -5,6 +5,7 @@ Module for encrypting and decrypting JSON objects using AWS Key Management Servi
 
 * Install the package: `npm install kms-json`
 * Require and instantiate `kms-json`:
+
   ```javascript
   const KmsJson = require('kms-json');
   const kmsJson = new KmsJson({
