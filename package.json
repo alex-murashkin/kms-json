@@ -1,0 +1,33 @@
+{
+  "name": "kms-json",
+  "version": "0.5.0",
+  "description": "Encrypting and decrypting JSON objects using AWS Key Management Service (KMS) customer master keys",
+  "main": "index.js",
+  "engines": {
+    "node": ">=4.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "aws",
+    "kms",
+    "aws kms",
+    "key management service",
+    "json",
+    "encrypt",
+    "decrypt",
+    "amazon",
+    "amazon web services"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexanderMS/kms-json.git"
+  },
+  "author": "Alexandr Murashkin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexanderMS/kms-json/issues"
+  },
+  "homepage": "https://github.com/AlexanderMS/kms-json#readme"
+}
