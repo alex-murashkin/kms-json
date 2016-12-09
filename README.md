@@ -36,7 +36,7 @@ const encrypted = yield kmsJson.encrypt({
 });
 console.log(encrypted);
 // outputs something like "0101020078c99e38275140f38a86222f8...3cc"
-// depending on the key, payload size and encoding
+// depending on the key, payload size, and encoding
 ```
 * Decrypt an encrypted JSON object:
 
