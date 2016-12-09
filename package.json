@@ -6,12 +6,8 @@
   "engines": {
     "node": ">=4.0"
   },
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "test": "istanbul cover node_modules/mocha/bin/_mocha --",
-    "posttest": "eslint ."
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "aws",
