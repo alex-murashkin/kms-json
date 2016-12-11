@@ -1,5 +1,5 @@
 # kms-json
-Module for encrypting and decrypting JSON objects using AWS Key Management Service (KMS) customer master keys.
+Node.JS module and CLI for encrypting and decrypting JSON objects using AWS Key Management Service (KMS) customer master keys.
 
 ## Usage
 
@@ -32,10 +32,11 @@ encoding            | string          | Character encoding to represent the encr
 ```javascript
 const encrypted = yield kmsJson.encrypt({
   fullName: 'John Connor',
-  password: '123'
+  userId: 123,
+  isActive: true
 });
 console.log(encrypted);
-// outputs a string like "0101020078c99e38275140f38a86222f8...3cc"
+// outputs a string like "AQECAHgNzJL58IXknWSXEuLX+0y9U4qC...rilpa8RMxzFV1"
 // depending on the key, payload size, and encoding
 ```
 
@@ -44,5 +45,52 @@ console.log(encrypted);
 ```javascript
 const decrypted = yield kmsJson.decrypt(encrypted);
 console.log(decrypted);
-// outputs { fullName: 'John Connor', password: '123' }
+// outputs { fullName: 'John Connor', userId: 123, isActive: true }
 ```
+
+## CLI
+
+`node cli -h`
+```sh
+[json-object] | node cli  -r [region] -k [access-key-id] -s [secret-access-key]
+-m ["decrypt" OR "encrypt"] -y [kms-key-id] -c [encoding]
+
+Options:
+  -m, --mode               Mode       [required] [choices: "encrypt", "decrypt"]
+  -r, --region             AWS Region                                 [required]
+  -k, --access-key-id      AWS Access Key Id                          [required]
+  -s, --secret-access-key  AWS Secret Access Key                      [required]
+  -y, --kms-key-id         AWS KMS key id                             [required]
+  -c, --encoding           Encoding of ciphertext                     [required]
+  -h, --help               Show help                                   [boolean]
+
+More examples at http://github.com/AlexanderMS/kms-json
+```
+
+* Encrypt:
+
+```sh
+$ echo '{"fullName": "John Connor", "userId": 123, "isActive": true }' | node cli -r "us-east-1" -y "arn:aws:kms:us-east-1:123456:key/a7c08fe1-b767-4883-8c94-85726" -k "AKIAIOSFODNN7EXAMPLE" -s "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" -m encrypt -c "base64"
+Provided JSON:
+{
+  "fullName": "John Connor",
+  "userId": 123,
+  "isActive": true
+}
+Specified encoding: base64
+Encrypting...
+AQECAHgNzJL58IXknWSXEuLX+0y9U4qCdOkGemXt5OM+6ba0aAAAAKkwgaYGCSqGSIb3DQEHBqCBmDCBlQIBADCBjwYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAzkDMa60HA8ePR8vIECARCAYssYOWcDTa6SfQRce2brSAZuDZS2TdJGksWyXvSiILLOgRKlyigZKbImXlboeYzIUDeSwivIBprmC1glq+3UrTRoPl+fZRJA4wjnBhBeVyCjEBQhmsFl1warilpa8RMxzFV1
+```
+
+* Decrypt:
+
+```sh
+$ echo 'AQECAHgNzJL58IXknWSXEuLX+0y9U4qCdOkGemXt5OM+6ba0aAAAAKkwgaYGCSqGSIb3DQEHBqCBmDCBlQIBADCBjwYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAzkDMa60HA8ePR8vIECARCAYssYOWcDTa6SfQRce2brSAZuDZS2TdJGksWyXvSiILLOgRKlyigZKbImXlboeYzIUDeSwivIBprmC1glq+3UrTRoPl+fZRJA4wjnBhBeVyCjEBQhmsFl1warilpa8RMxzFV1' | node cli -r "us-east-1" -y "arn:aws:kms:us-east-1:123456:key/a7c08fe1-b767-4883-8c94-85726" -k "AKIAIOSFODNN7EXAMPLE" -s "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" -m decrypt -c "base64"
+Provided ciphertext:
+AQECAHgNzJL58IXknWSXEuLX+0y9U4qCdOkGemXt5OM+6ba0aAAAAKkwgaYGCSqGSIb3DQEHBqCBmDCBlQIBADCBjwYJKoZIhvcNAQcBMB4GCWCGSAFlAwQBLjARBAzkDMa60HA8ePR8vIECARCAYssYOWcDTa6SfQRce2brSAZuDZS2TdJGksWyXvSiILLOgRKlyigZKbImXlboeYzIUDeSwivIBprmC1glq+3UrTRoPl+fZRJA4wjnBhBeVyCjEBQhmsFl1warilpa8RMxzFV1
+Specified encoding:  base64
+Decrypting...
+{"fullName": "John Connor", "userId": 123, "isActive": true }
+```
+
+For Windows command line (`cmd.exe`), do not wrap the piped input with quotes, i.e., replace `'{"fullName": "John Connor"... }'` with `{"fullName": "John Connor"... }`
