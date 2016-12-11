@@ -1,12 +1,16 @@
 'use strict';
 
-const AWS = require('aws-sdk');
+const
+  AWS = require('aws-sdk'),
+  assert = require('assert');
 
 class KmsJson {
   constructor(options) {
+    assert(options, '"options" must be provided');
+    assert(options.keyId, '"options.keyId" must be provided');
     this.kms = new AWS.KMS(options.awsKmsSettings);
     this.keyId = options.keyId;
-    this.encoding = options.encoding || 'hex';
+    this.encoding = options.encoding || 'base64';
   }
 
   encrypt(inputJson) {
