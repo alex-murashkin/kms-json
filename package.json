@@ -1,6 +1,6 @@
 {
   "name": "kms-json",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Encrypting and decrypting JSON objects using AWS Key Management Service (KMS) customer master keys",
   "main": "index.js",
   "engines": {
