@@ -10,9 +10,17 @@
     "test": "test"
   },
   "scripts": {
-    "test": "istanbul cover node_modules/mocha/bin/_mocha --",
-    "posttest": "eslint .",
-    "lint": "eslint ."
+    "coverage": "nyc report --reporter=lcov",
+    "coveralls-coverage": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "eslint .",
+    "test": "nyc --all mocha --recursive ./test",
+    "posttest": "eslint ."
+  },
+  "nyc": {
+    "exclude": [
+      "cli.js",
+      "coverage/**"
+    ]
   },
   "keywords": [
     "aws",
@@ -38,11 +46,12 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
+    "coveralls": "^2.13.0",
     "co": "^4.6.0",
     "eslint": "^3.12.0",
     "get-stdin": "^5.0.1",
-    "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
+    "nyc": "^10.2.0",
     "sinon": "^1.17.6",
     "yargs": "^6.5.0"
   },

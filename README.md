@@ -1,5 +1,12 @@
 # kms-json
-Node.JS module and CLI for encrypting and decrypting JSON objects using AWS Key Management Service (KMS) customer master keys.
+
+[![npm version](https://badge.fury.io/js/kms-json.svg)](https://badge.fury.io/js/kms-json)
+[![CircleCI](https://circleci.com/gh/AlexanderMS/kms-json.svg?style=shield)](https://circleci.com/gh/AlexanderMS/kms-json)
+[![Coverage Status](https://coveralls.io/repos/github/AlexanderMS/kms-json/badge.svg?branch=master)](https://coveralls.io/github/AlexanderMS/kms-json?branch=master)
+
+Node.JS module for encrypting and decrypting JSON objects using AWS Key Management Service (KMS) customer master keys.
+
+A CLI wrapper is also available.
 
 ## Usage
 
